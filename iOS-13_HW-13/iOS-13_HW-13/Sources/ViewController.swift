@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingCell") // Регистрация типа ячейки
+        tableView.dataSource = self // Установка dataSource
         return tableView
     }()
     
@@ -31,15 +33,29 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Настройки"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
+
+        setupNavigationBar()
         setupHierarchy()
         setupLayout()
-        
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingCell")
     }
-    
+
+    private func setupNavigationBar() {
+        // Создаем настраиваемый внешний вид для навигационной панели
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+
+        // Настройка атрибутов заголовка
+        appearance.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.black]
+
+        // Применяем настроенный внешний вид к текущей навигационной панели
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
+        // Опционально, если используете большие заголовки
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+
     private func setupHierarchy() {
         view.addSubview(tableView)
     }
@@ -73,4 +89,3 @@ class ViewController: UIViewController, UITableViewDataSource {
         print("\(setting.title) is now \(sender.isOn ? "ON" : "OFF")")
     }
 }
-
