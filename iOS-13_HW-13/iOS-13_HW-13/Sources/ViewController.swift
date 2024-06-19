@@ -1,59 +1,57 @@
 import UIKit
 import SnapKit
 
+// Enum for identifying setting type
 enum SettingType {
-    case flymode
+    case airplaneMode
     case wifi
     case bluetooth
     case cellular
-    
+    case notifications
 }
 
+// Struct for holding the details of each setting
 struct Setting {
     var title: String
     var type: SettingType
+    var icon: UIImage?
+    var isSwitch: Bool
 }
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingCell") // Регистрация типа ячейки
-        tableView.dataSource = self // Установка dataSource
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingCell")
+        tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
     
     private var settings: [Setting] = [
-        Setting(title: "Авиарежим", type: .flymode),
-        Setting(title: "Wi-Fi", type: .wifi),
-        Setting(title: "Bluetooth", type: .bluetooth),
-        Setting(title: "Сотовая связь", type: .cellular)
+        Setting(title: "Авиарежим", type: .airplaneMode, icon: UIImage(systemName: "airplane"), isSwitch: true),
+        Setting(title: "Wi-Fi", type: .wifi, icon: UIImage(systemName: "wifi"), isSwitch: false),
+        Setting(title: "Bluetooth", type: .bluetooth, icon: UIImage(systemName: "bluetooth"), isSwitch: false),
+        Setting(title: "Сотовая связь", type: .cellular, icon: UIImage(systemName: "antenna.radiowaves.left.and.right"), isSwitch: false),
+        Setting(title: "Уведомления", type: .notifications, icon: UIImage(systemName: "bell.badge"), isSwitch: true)
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Настройки"
-
         setupNavigationBar()
         setupHierarchy()
         setupLayout()
     }
-
+    
     private func setupNavigationBar() {
-        // Создаем настраиваемый внешний вид для навигационной панели
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
-
-        // Настройка атрибутов заголовка
         appearance.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.black]
-
-        // Применяем настроенный внешний вид к текущей навигационной панели
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
-        // Опционально, если используете большие заголовки
         navigationController?.navigationBar.prefersLargeTitles = false
     }
 
@@ -75,12 +73,17 @@ class ViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath)
         let setting = settings[indexPath.row]
         cell.textLabel?.text = setting.title
-        switch setting.type {
-        case .flymode, .bluetooth, .wifi, .cellular:
+        cell.imageView?.image = setting.icon
+        cell.accessoryView = nil
+        cell.accessoryType = .none
+        
+        if setting.isSwitch {
             let switchControl = UISwitch()
             switchControl.tag = indexPath.row
             switchControl.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
             cell.accessoryView = switchControl
+        } else {
+            cell.accessoryType = .disclosureIndicator
         }
         return cell
     }
@@ -89,4 +92,14 @@ class ViewController: UIViewController, UITableViewDataSource {
         let setting = settings[sender.tag]
         print("\(setting.title) is now \(sender.isOn ? "ON" : "OFF")")
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let setting = settings[indexPath.row]
+        if !setting.isSwitch {
+            // Handle navigation to detail settings screen
+            print("Navigate to settings detail for \(setting.title)")
+        }
+    }
 }
+
