@@ -25,6 +25,30 @@ struct Setting {
     var isSwitch: Bool
 }
 
+class SettingTableViewCell: UITableViewCell {
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(iconImageView)
+        iconImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(25)  // Установите фиксированный размер
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(15)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private lazy var tableView: UITableView = {
@@ -39,7 +63,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         [
             Setting(title: "Авиарежим", type: .airplaneMode, icon: UIImage(systemName: "airplane")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), isSwitch: true),
             Setting(title: "Wi-Fi", type: .wifi, icon: UIImage(systemName: "wifi")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal), isSwitch: false),
-            Setting(title: "Bluetooth", type: .bluetooth, icon: UIImage(systemName: "bluetooth")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal), isSwitch: false),
+            Setting(title: "Bluetooth", type: .bluetooth, icon: UIImage(named: "BluetoothIcon"), isSwitch: false),
+
             Setting(title: "Сотовая связь", type: .cellular, icon: UIImage(systemName: "antenna.radiowaves.left.and.right")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), isSwitch: false)
         ],
         [
@@ -58,8 +83,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         ]
     ]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: "settingCell")
         view.backgroundColor = .white
         title = "Настройки"
         setupNavigationBar()
