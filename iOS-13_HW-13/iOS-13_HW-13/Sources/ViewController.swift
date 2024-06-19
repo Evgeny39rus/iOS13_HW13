@@ -1,14 +1,14 @@
 import UIKit
 import SnapKit
 
-// Enum for identifying setting type
 enum SettingType {
-    case bluetooth
+    case flymode
     case wifi
-    case notifications
+    case bluetooth
+    case cellular
+    
 }
 
-// Struct for holding the details of each setting
 struct Setting {
     var title: String
     var type: SettingType
@@ -24,9 +24,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     }()
     
     private var settings: [Setting] = [
-        Setting(title: "Bluetooth", type: .bluetooth),
+        Setting(title: "Авиарежим", type: .flymode),
         Setting(title: "Wi-Fi", type: .wifi),
-        Setting(title: "Notifications", type: .notifications)
+        Setting(title: "Bluetooth", type: .bluetooth),
+        Setting(title: "Сотовая связь", type: .cellular)
     ]
     
     override func viewDidLoad() {
@@ -75,7 +76,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         let setting = settings[indexPath.row]
         cell.textLabel?.text = setting.title
         switch setting.type {
-        case .bluetooth, .wifi, .notifications:
+        case .flymode, .bluetooth, .wifi, .cellular:
             let switchControl = UISwitch()
             switchControl.tag = indexPath.row
             switchControl.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
