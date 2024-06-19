@@ -1,11 +1,5 @@
-//
-//  AppDelegate.swift
-//  iOS-13_HW-13
-//
-//  Created by Евгений Сушков on 18.06.2024.
-//
-
 import UIKit
+import SnapKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
