@@ -185,7 +185,7 @@ final class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func laodData()
+    private func loadData()
     private func setupNavigatoinBar(){
         title = "Setting"
         navigationController?.navigationBar.prefersLargeTitles = true
