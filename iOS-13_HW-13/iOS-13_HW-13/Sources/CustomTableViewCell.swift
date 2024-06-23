@@ -38,7 +38,37 @@ class settingsTableViewCell: UITableViewCell {
         return status
     }()
     
-    
+    // MARK: Lifecycle
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupHierarchy()
+        setupLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Setup
+    private func setupHierarchy() {
+        contentView.addSubview(image)
+        contentView.addSubview(status)
+        contentView.addSubview(name)
+    }
+
+    private func setupLayout() {
+        image.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.left.equalTo(contentView).offset(16)
+            make.width.height.equalTo(60)
+        }
+
+        name.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.left.equalTo(image.snp.right).offset(16)
+        }
+    }
+
     
     
     
