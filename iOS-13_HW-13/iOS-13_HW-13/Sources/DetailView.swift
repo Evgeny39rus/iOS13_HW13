@@ -1,12 +1,46 @@
-//
-//  DetailView.swift
-//  iOS-13_HW-13
-//
-//  Created by Евгений Сушков on 22.06.2024.
-//
-
 import UIKit
+import SnapKit
 
-class DetailView: NSObject {
+final class DetailView: UIViewController {
+        var setting: Setting?
 
-}
+        // MARK: UI
+        private lazy var image: UIImageView = {
+            let image = UIImageView()
+            image.clipsToBounds = true
+            return image
+        }()
+
+        private lazy var name: UILabel = {
+            let name = UILabel()
+            name.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            name.textColor = .black
+            return name
+        }()
+
+        // MARK: Lifecycle
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            setupHierarchy()
+            setupLayout()
+            fillSettings()
+        }
+
+        // MARK: Setup
+        private func setupHierarchy() {
+            view.backgroundColor = .white
+            view.addSubview(image)
+        }
+
+        private func setupLayout() {
+            // Layout code would go here
+        }
+
+        private func fillSettings() {
+            if let setting = setting {
+                image.image = setting.image
+                name.text = setting.name
+            }
+        }
+    }
+

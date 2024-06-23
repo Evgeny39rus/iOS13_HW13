@@ -164,12 +164,13 @@ import UIKit
 import SnapKit
 
 final class ViewController: UIViewController {
-    var Setting: [Setting]?
+    
+    var Settings: [Setting]?
     
     // MARK: UI
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(customTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -185,7 +186,9 @@ final class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func loadData()
+    private func loadData() {
+        
+    }
     private func setupNavigatoinBar(){
         title = "Setting"
         navigationController?.navigationBar.prefersLargeTitles = true

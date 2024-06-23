@@ -1,14 +1,7 @@
-//
-//  CustomTableViewCell.swift
-//  iOS-13_HW-13
-//
-//  Created by Евгений Сушков on 22.06.2024.
-//
-
 import UIKit
 import SnapKit
 
-class settingsTableViewCell: UITableViewCell {
+class customTableViewCell: UITableViewCell {
     var setting: Setting? {
         didSet {
             image.image = setting?.image
@@ -62,15 +55,23 @@ class settingsTableViewCell: UITableViewCell {
             make.left.equalTo(contentView).offset(16)
             make.width.height.equalTo(60)
         }
-
-        name.snp.makeConstraints { make in
-            make.centerY.equalTo(contentView)
-            make.left.equalTo(image.snp.right).offset(16)
+        name.snp.makeConstraints {
+            $0.centerY.equalTo(contentView)
+            $0.left.equalTo(image.snp.right)
         }
+        
+        status.snp.makeConstraints {
+            $0.centerY.equalTo(contentView)
+            $0.right.equalTo(contentView).offset(-20)
+        }
+        
+           
     }
-
     
-    
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.accessoryView = .none
+        self.setting = nil
+    }
     
 }
