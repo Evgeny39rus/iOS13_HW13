@@ -3,11 +3,11 @@ import SnapKit
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Setting?.count ?? 0
+        return Settings?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Setting?[section].count ?? 0
+        return Settings?[section].count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -23,11 +23,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         case .switchButton:
             cell?.accessoryView = switchButton
         case .disclosureIndicator:
-            cell?.accessoryType = .disclosureIndicator
+            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         case .none:
-            cell?.accessoryType = .none
+            cell?.accessoryType = UITableViewCell.AccessoryType.none
         case .checkmark:
-            cell?.accessoryType = .checkmark
+            cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
         default:
             break
         }
