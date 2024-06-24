@@ -27,8 +27,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         case .none:
             cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
-        default:
-            break
         }
 
         return cell ?? UITableViewCell()
@@ -40,7 +38,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = DetailView()
         tableView.deselectRow(at: indexPath, animated: true)
-        viewController.settings = settings?[indexPath.section][indexPath.row]
+        viewController.setting = settings?[indexPath.section][indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
