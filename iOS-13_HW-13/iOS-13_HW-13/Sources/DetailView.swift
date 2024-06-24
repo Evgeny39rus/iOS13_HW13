@@ -26,21 +26,25 @@ final class DetailView: UIViewController {
             fillSettings()
         }
 
-        // MARK: Setup
-        private func setupHierarchy() {
-            view.backgroundColor = .white
-            view.addSubview(image)
-        }
+    private func setupHierarchy() {
+        view.backgroundColor = .white
+        view.addSubview(image)
+        view.addSubview(name)
+    }
 
-        private func setupLayout() {
-            // Layout code would go here
+    private func setupLayout() {
+        image.snp.makeConstraints {
+            $0.centerY.centerX.equalTo(view)
         }
+        name.snp.makeConstraints {
+            $0.centerX.equalTo(image)
+            $0.top.equalTo(image.snp.bottom)
+        }
+    }
 
-        private func fillSettings() {
-            if let setting = setting {
-                image.image = setting.image
-                name.text = setting.name
-            }
-        }
+    private func fillSettings() {
+        image.image = setting?.settingStructImage
+        name.text = setting?.settingStructName
+    }
     }
 

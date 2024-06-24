@@ -163,9 +163,9 @@
 import UIKit
 import SnapKit
 
-final class ViewController: UIViewController {
+class ViewController: UIViewController {
     
-    var Settings: [Setting]?
+    var settings: [[Setting]]?
     
     // MARK: UI
     private lazy var tableView: UITableView = {

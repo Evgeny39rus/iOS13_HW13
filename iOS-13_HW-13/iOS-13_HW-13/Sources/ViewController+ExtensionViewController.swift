@@ -3,18 +3,19 @@ import SnapKit
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Settings?.count ?? 0
+        return settings?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Settings?[section].count ?? 0
+        return settings?[section].count ?? 0
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomTableViewCell
-        let typeOfAccessory = Setting?[indexPath.section][indexPath.row].cellType
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? customTableViewCell
+        let typeOfAccessory = settings?[indexPath.section][indexPath.row].cellType
         
-        cell?.setting = Setting?[indexPath.section][indexPath.row]
+        cell?.setting = settings?[indexPath.section][indexPath.row]
         
         let switchButton = UISwitch(frame: .zero)
         switchButton.isOn = false
@@ -25,8 +26,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         case .disclosureIndicator:
             cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         case .none:
-            cell?.accessoryType = UITableViewCell.AccessoryType.none
-        case .checkmark:
             cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
         default:
             break
@@ -41,7 +40,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = DetailView()
         tableView.deselectRow(at: indexPath, animated: true)
-        viewController.setting = ?[indexPath.section][indexPath.row]
+        viewController.settings = settings?[indexPath.section][indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
