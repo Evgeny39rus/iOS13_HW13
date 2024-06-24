@@ -43,8 +43,8 @@ final class DetailView: UIViewController {
     }
 
     private func fillSettings() {
-        image.image = setting?.settingStructImage
-        name.text = setting?.settingStructName
+        image.image = setting?.image
+        name.text = setting?.name
     }
     }
 
