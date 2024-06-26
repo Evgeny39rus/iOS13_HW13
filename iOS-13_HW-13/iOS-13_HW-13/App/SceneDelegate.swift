@@ -13,5 +13,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
+    func sceneDidDisconnect(_ scene: UIScene) {
+           // Вызывается, когда сцена была отключена и больше не связана с окном приложения
+       }
 
-}
+       func sceneDidBecomeActive(_ scene: UIScene) {
+           // Вызывается, когда сцена перешла в активное состояние
+       }
+
+       func sceneWillResignActive(_ scene: UIScene) {
+           // Вызывается, когда сцена перестаёт быть активной
+       }
+
+       func sceneWillEnterForeground(_ scene: UIScene) {
+           // Вызывается, когда сцена переходит из фонового состояния в состояние на переднем плане
+       }
+
+       func sceneDidEnterBackground(_ scene: UIScene) {
+           // Вызывается, когда сцена перешла в фоновое состояние
+       }
+   }

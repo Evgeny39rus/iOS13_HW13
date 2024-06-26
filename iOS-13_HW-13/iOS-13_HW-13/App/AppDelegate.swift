@@ -17,7 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 
     }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+            // Вызывается, когда приложение переходит в фоновый режим
+        }
 
+        func applicationWillEnterForeground(_ application: UIApplication) {
+            // Вызывается, когда приложение собирается вернуться на передний план
+        }
 
-}
+        func applicationDidBecomeActive(_ application: UIApplication) {
+            // Вызывается, когда приложение становится активным
+        }
+
+        func applicationWillResignActive(_ application: UIApplication) {
+            // Вызывается, когда приложение собирается перейти из активного в неактивное состояние
+        }
+
+        func applicationWillTerminate(_ application: UIApplication) {
+            // Вызывается, когда приложение собирается завершиться
+        }
+    }
 

@@ -182,19 +182,16 @@ class ViewController: UIViewController {
         setupViews()
         setupLayout()
         setupNavigatoinBar()
-        loadData()
         tableView.reloadData()
     }
     
-    private func loadData() {
-        
-    }
     private func setupNavigatoinBar(){
         title = "Setting"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupViews() {
+        settings = Setting.newSetting
         view.addSubview(tableView)
         view.backgroundColor = .white
         title = "Настройки"
